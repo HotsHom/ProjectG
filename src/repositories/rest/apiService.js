@@ -2,7 +2,8 @@ import UserStorage from "../local/store/userStore";
 import TasksStore from "../local/store/tasksStore";
 import UserStore from "../local/store/userStore";
 
-const HOST = `http://127.0.0.1:3000`
+const PORT = `3000`
+const HOST = `http://127.0.0.1:${PORT}`
 const API_URL = `${HOST}/api`
 
 //Регистрация
