@@ -1,80 +1,50 @@
 import {action, computed, decorate, observable} from "mobx";
-import {RestService} from "../../rest/apiService";
-import {getLocalToken, setLocalToken} from "../localStorageService";
+import {LoginUser} from "../../rest/apiService";
 
-class userStore {
+class userStore{
     isFlagAuth = observable({
-        Flag : !!getLocalToken()
+        Flag : false
     })
-
     userData = observable({
         id : 0,
-        email : "",
-        password : "",
-        token : ""
+        email: "",
+        token: "",
+        password: ""
     })
-
-    changeFlagAuth = () => {
+    changeFlagAuth() {
         this.isFlagAuth.Flag = !this.isFlagAuth.Flag
     }
-    saveData = (id_, token) => {
+    saveData(id_, email_, token){
+        this.userData.email = email_;
         this.userData.id = id_;
         this.userData.token = token;
-        setLocalToken(token)
         this.changeFlagAuth()
     }
-    get getEmail(){
-        return this.userData.email
-    }
-    get getPassword(){
-        return this.userData.password
-    }
-    saveEmail = (email_) => {
+    saveEmail(email_){
         this.userData.email = email_
     }
-    savePassword = (password_) => {
+    savePassword(password_){
         this.userData.password = password_
     }
-    AuthUser = () => {
-        let result = RestService({
-            url : "/Users/login",
-            method : "POST",
-            body : {
-                email : this.getEmail,
-                password : this.getPassword
-            }
+    authUser(){
+        let result = LoginUser({
+            email : this.userData.email,
+            password : this.userData.password
         })
-        result.then(res => {
-            res ? this.saveData(res.userId, res.id)
-                : window.location.href = "/login"
-        })
+        console.log(result)
     }
-    RegistrationUser = () => {
-        RestService({
-            url : "/Users",
-            method: "POST",
-            body: {
-                email : this.getEmail,
-                password : this.getPassword
-            }
-        }).then(response => {
-            console.log(response)
-            if (response === undefined){
-                window.location.href = "/register"
-            }
-        })
+    get getToken(){
+        return this.userData.token
     }
 }
 decorate(userStore, {
     changeFlagAuth : action,
     saveData : action,
     saveTasksCount : action,
+    getToken : computed,
     saveEmail : action,
     savePassword : action,
-    AuthUser : action,
-    getPassword : computed,
-    getEmail : computed,
-    RegistrationUser : action
+    authUser : action
 })
 const UserStore = new userStore();
 export default UserStore
