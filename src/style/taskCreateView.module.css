@@ -1,0 +1,39 @@
+.formTask{
+    width: 50%;
+    margin: 0 auto;
+    position: relative;
+    top: 20%;
+    display: block;
+}
+
+.formTask>input{
+    width: 100%;
+    height: 20px;
+    padding: 5px;
+}
+
+.formTask>*{
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.formTask>textarea{
+    margin: 10px auto;
+    height: 100px;
+    width: 100%;
+    padding: 5px;
+}
+
+.formTask>a{
+  margin: 0 auto;
+  border: 1px dotted #999;
+  border-radius: 5px;
+  background-color: #e2e2e2;
+  width: 102%;
+  height: 25px;
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  padding-top: 2%;
+  color: #282c34;
+}

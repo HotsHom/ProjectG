@@ -1,0 +1,18 @@
+.navBar{
+    background-color: #ffd997;
+    height: 50px;
+    width: auto;
+    text-align: center;
+    padding-top: 25px;
+}
+
+.navBut{
+    text-decoration: none;
+    color: #282c34;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.navBut:hover{
+    color: chocolate;
+}

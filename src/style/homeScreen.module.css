@@ -1,0 +1,16 @@
+.tasks{
+    float: left;
+    width: 100%;
+}
+
+.task{
+    flex: content;
+    width: 80%;
+    padding: 10px;
+    height: auto;
+    display: block;
+    background-color: #ffffff;
+    border: 1px solid #e2e2e2;
+    border-radius: 5px;
+    margin: 15px auto;
+}
