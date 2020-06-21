@@ -68,7 +68,6 @@ class userStore {
 decorate(userStore, {
     changeFlagAuth : action,
     saveData : action,
-    saveTasksCount : action,
     saveEmail : action,
     savePassword : action,
     AuthUser : action,

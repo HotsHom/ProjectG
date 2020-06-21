@@ -72,11 +72,10 @@ class tasksStore {
 }
 decorate(tasksStore, {
     setTasks : action,
-    changeCountTasks : action,
-    changeStatus : action,
+    ChangeStatusTask : action,
     getTasksListList : computed,
     LoadTasks : action,
-    changeStatusTask : action,
+    CreateOrChangeTask : action,
     DeleteTask : action,
     setTitle : action,
     setBody : action
