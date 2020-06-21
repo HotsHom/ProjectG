@@ -1,5 +1,8 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of db2b50d... Merge branch 'master' of https://github.com/HotsHom/ProjectG
 import {getLocalToken} from "../local/localStorageService";
 
 >>>>>>> parent of db2b50d... Merge branch 'master' of https://github.com/HotsHom/ProjectG
@@ -22,9 +25,14 @@ export const RestService = ({ url, method, body, signal }) => {
         if (response.status === 200) {
             return response.json()
 <<<<<<< HEAD
+<<<<<<< HEAD
         }else {
             alert(`Ошибка авторизации с кодом [${response.status}]`)
             return
+=======
+        } else {
+            return alert(`Что-то пошло не так. Статус ошибки: ${response.status}`)
+>>>>>>> parent of db2b50d... Merge branch 'master' of https://github.com/HotsHom/ProjectG
 =======
         } else {
             return alert(`Что-то пошло не так. Статус ошибки: ${response.status}`)
