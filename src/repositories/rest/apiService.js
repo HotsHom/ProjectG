@@ -42,11 +42,11 @@ export const LoginUser = (userData) => {
         if (response.status === 200) {
             alert("Авторизация прошла успешно")
             response.json().then(result => {
-                UserStorage.saveData(result.userId, userData.email, result.id)
+                return(result)
             })
         } else {
             alert(`Ошибка авторизации с кодом [${response.status}]`)
-            window.location.href = "/login"
+           return
         }
     })
 }

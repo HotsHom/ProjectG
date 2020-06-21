@@ -1,6 +1,7 @@
 import {action, computed, decorate, observable} from "mobx";
+import {LoginUser} from "../../rest/apiService";
 
-class userStore {
+class userStore{
     isFlagAuth = observable({
         Flag : false
     })
@@ -8,7 +9,7 @@ class userStore {
         id : 0,
         email: "",
         token: "",
-        tasksCount: 0
+        password: ""
     })
     changeFlagAuth() {
         this.isFlagAuth.Flag = !this.isFlagAuth.Flag
@@ -19,6 +20,19 @@ class userStore {
         this.userData.token = token;
         this.changeFlagAuth()
     }
+    saveEmail(email_){
+        this.userData.email = email_
+    }
+    savePassword(password_){
+        this.userData.password = password_
+    }
+    authUser(){
+        let result = LoginUser({
+            email : this.userData.email,
+            password : this.userData.password
+        })
+        console.log(result)
+    }
     get getToken(){
         return this.userData.token
     }
@@ -27,8 +41,10 @@ decorate(userStore, {
     changeFlagAuth : action,
     saveData : action,
     saveTasksCount : action,
-    getToken : computed
-
+    getToken : computed,
+    saveEmail : action,
+    savePassword : action,
+    authUser : action
 })
 const UserStore = new userStore();
 export default UserStore
