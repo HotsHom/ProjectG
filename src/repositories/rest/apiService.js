@@ -1,4 +1,5 @@
 import {getLocalToken} from "../local/localStorageService";
+import {ERROR_HTTP, ERROR_TEMPLATE} from "../constants";
 
 const PORT = `3000`
 const HOST = `http://127.0.0.1:${PORT}`
@@ -18,9 +19,9 @@ export const RestService = ({ url, method, body, signal }) => {
         if (response.ok) {
             return response.json()
         }else {
-            return Promise.reject("Вы ввели неверные данные")
+            return Promise.reject(ERROR_HTTP)
         }
     }).catch(error => {
-        return Promise.reject("Упс, кажется что-то не так: " + error)
+        return Promise.reject(ERROR_TEMPLATE + error)
     })
 }

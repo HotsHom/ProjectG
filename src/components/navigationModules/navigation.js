@@ -10,6 +10,7 @@ import Main from "../authScreens/mainScreen";
 import {LogoutScreen} from "../authScreens/logoutScreen";
 import styles from "../../style/navigation.module.css";
 import {Warning} from "../warning/warning";
+import {MENU_HOME, MENU_LOGIN, MENU_LOGOUT, MENU_REGISTER} from "../../repositories/constants";
 
 class UrlList extends React.Component{
     render() {
@@ -18,8 +19,8 @@ class UrlList extends React.Component{
                 <BrowserRouter>
                     <Warning />
                     <div className={styles.navBar}>
-                        <Link className={styles.navBut} to="/home">HOME</Link>|
-                        <Link className={styles.navBut} to="/logout">LOGOUT</Link>
+                        <Link className={styles.navBut} to="/home">{MENU_HOME}</Link>|
+                        <Link className={styles.navBut} to="/logout">{MENU_LOGOUT}</Link>
                     </div>
                     <div className="mainscreen">
                         <Route path="/home" component={HomeScreen}/>
@@ -32,9 +33,9 @@ class UrlList extends React.Component{
                 <BrowserRouter>
                     <Warning />
                     <div className={styles.navBar}>
-                        <Link className={styles.navBut} to="/">HOME</Link>|
-                        <Link className={styles.navBut} to="/login">LOGIN</Link>|
-                        <Link className={styles.navBut} to="/register">REGISTRATION</Link>
+                        <Link className={styles.navBut} to="/">{MENU_HOME}</Link>|
+                        <Link className={styles.navBut} to="/login">{MENU_LOGIN}</Link>|
+                        <Link className={styles.navBut} to="/register">{MENU_REGISTER}</Link>
                     </div>
                     <div className="mainscreen">
                         <Route exact path="/login" component={LoginScreen}/>
