@@ -24,13 +24,13 @@
     padding: 5px;
 }
 
-.formTask>a{
+.formTask>button{
   margin: 0 auto;
   border: 1px dotted #999;
   border-radius: 5px;
   background-color: #e2e2e2;
-  width: 102%;
-  height: 25px;
+  width: 100%;
+  height: auto;
   display: block;
   text-decoration: none;
   text-align: center;

@@ -7,7 +7,6 @@ const API_URL = `${HOST}/api`
 export const RestService = ({ url, method, body, signal }) => {
     const token = getLocalToken() //window.localStorage.getItem("Token")
     const apiUrl = `${API_URL + url + (token ? ("?access_token="+token) : "")}`
-    console.log(apiUrl)
     return fetch(apiUrl, {
         signal,
         method,
@@ -16,10 +15,12 @@ export const RestService = ({ url, method, body, signal }) => {
         },
         body: JSON.stringify(body)
     }).then(response => {
-        if (response.status === 200) {
+        if (response.ok) {
             return response.json()
         }else {
-            return alert(`Что-то пошло не так. Статус ошибки: ${response.status}`)
+            return Promise.reject("Вы ввели неверные данные")
         }
+    }).catch(error => {
+        return Promise.reject("Упс, кажется что-то не так: " + error)
     })
 }

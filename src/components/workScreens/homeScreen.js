@@ -23,7 +23,7 @@ class HomeScreen extends React.Component{
                 <HomeNavigation/>
                 <div className={styles.tasks + " mainscreen"}>
                     {Array.isArray(TasksStore.getTasksListStore) ? TasksStore.getTasksListStore.map((value, index) => {
-                        return <TaskView key={index} className={styles.task} title={value.title} body={value.body} id={value.id} done={value.done}/>
+                        return <TaskView key={value.id} className={styles.task} title={value.title} body={value.body} id={value.id} done={value.done}/>
                     }) : ""}
                 </div>
             </div>

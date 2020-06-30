@@ -1,5 +1,5 @@
 .form{
-    width: 210px;
+    width: 300px;
     margin: 0 auto;
     position: relative;
     top: 30%;
@@ -8,25 +8,22 @@
     padding: 50px;
 }
 
-.form_Link{
+.formLink{
     margin: 0 auto;
-    border: 1px dotted #999;
     border-radius: 5px;
     background-color: #e2e2e2;
     width: 100%;
-    height: 25px;
-    display: block;
+    height: auto;
     text-decoration: none;
-    text-align: center;
-    padding-top: 2%;
     color: #282c34;
 }
 
-.form_Input{
+.formInput{
     border: 1px dotted #999;
     border-radius: 5px;
-    width: 200px;
+    width: auto;
     height: 20px;
-    margin-bottom: 10px;
-    padding-left: 10px;
+    margin: 10px auto;
+    display: block;
+    padding: 10px;
 }

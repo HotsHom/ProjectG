@@ -1,5 +1,6 @@
 import {action, computed, decorate, observable} from "mobx";
 import {RestService} from "../../rest/apiService";
+import ErrorStore from "./errorStore";
 
 class tasksStore {
     tasksData = observable({
@@ -7,45 +8,33 @@ class tasksStore {
         count : 0
     })
     task = observable({
+        id : null,
         title : "",
         body : ""
     })
-    setTitle = (title) => {
-        this.task.title = title
-    }
-    setBody = (body) => {
-        this.task.body = body
+    setField = (fieldName, value) => {
+        this.task[fieldName] = value
     }
     setTasks = (tasks) => {
         this.tasksData.tasks = tasks
-        this.changeCountTasks(!!tasks && tasks)
-    }
-    changeCountTasks = (count) => {
-        this.tasksData.count = count ? count : this.tasksData.count - 1
-    }
-    getTitle = (id) => {
-        let index = this.tasksData.tasks.findIndex((element) => {
-            return (+element.id === +id)
-        })
-        return this.tasksData.tasks[index].title
-    }
-    getBody = (id) => {
-        let index = this.tasksData.tasks.findIndex((element) => {
-            return (+element.id === +id)
-        })
-        return this.tasksData.tasks[index].body
+        this.tasksData.count = this.tasksData.tasks.length
     }
     get getTasksListStore (){
         return this.tasksData.tasks.slice().sort((a, b) => {
             return (+a.done - +b.done)
         })
     }
-    CreateOrChangeTask = (id) => {
+    CreateOrChangeTask = () => {
         RestService({
-            url: `/tasks${id ? `/${id}` : ''}`,
-            method : id ? 'PATCH' : 'POST',
+            url: `/tasks${this.task.id ? `/${this.task.id}` : ''}`,
+            method : this.task.id ? 'PATCH' : 'POST',
             body : this.task
-        }).then(() => this.LoadTasks())
+        }).then((response) => {
+            this.LoadTasks()
+            window.location.href = "/home"
+        }, (reason) => {
+            this.error(reason)
+        })
     }
     LoadTasks = (signal) => {
         RestService({
@@ -53,32 +42,57 @@ class tasksStore {
             method: "GET",
             signal: signal
         }).then(response => {
-            this.setTasks(response)
+                this.setTasks(response)
+        }, reason => {
+            this.error(reason)
         })
     }
     DeleteTask = id => {
         RestService({
             url : `/tasks/${id}`,
             method : "DELETE"
-        }).then(() => this.LoadTasks())
+        }).then(() => {
+            this.LoadTasks()
+        }, reason => {
+            this.error(reason)
+        })
     }
     ChangeStatusTask = (id, status) => {
         RestService({
             url : `/tasks/${id}`,
             method : "PATCH",
             body : {"done" : !status}
-        }).then(() => this.LoadTasks())
+        }).then(() => {
+            this.LoadTasks()
+        }, reason => {
+            this.error(reason)
+        })
+    }
+    error = (errorMessage) => {
+        ErrorStore.setError(errorMessage)
+    }
+
+    loadCurrentTask = (id) => {
+        let index = this.getTaskIndex(id)
+        this.task = this.tasksData.tasks[index]
+        this.task.id = id
+    }
+
+    getTaskIndex = (id) => {
+        return this.tasksData.tasks.findIndex((element) => {
+            return (+element.id === +id)
+        })
     }
 }
 decorate(tasksStore, {
-    setTasks : action,
     ChangeStatusTask : action,
-    getTasksListList : computed,
+    setTasks : action,
+    getTasksListStore : computed,
     LoadTasks : action,
     CreateOrChangeTask : action,
     DeleteTask : action,
-    setTitle : action,
-    setBody : action
+    setField : action,
+    loadCurrentTask : action
 })
 const TasksStore = new tasksStore();
 export default TasksStore

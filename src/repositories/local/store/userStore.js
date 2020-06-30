@@ -1,6 +1,7 @@
 import {action, computed, decorate, observable} from "mobx";
 import {RestService} from "../../rest/apiService";
 import {getLocalToken, setLocalToken} from "../localStorageService";
+import ErrorStore from "./errorStore";
 
 class userStore {
     isFlagAuth = observable({
@@ -36,17 +37,18 @@ class userStore {
         this.userData.password = password_
     }
     AuthUser = () => {
-        let result = RestService({
+        RestService({
             url : "/Users/login",
             method : "POST",
             body : {
                 email : this.getEmail,
                 password : this.getPassword
             }
-        })
-        result.then(res => {
-            res ? this.saveData(res.userId, res.id)
-                : window.location.href = "/login"
+        }).then(response => {
+                this.saveData(response.userId, response.id)
+                window.location.href = "/home"
+        }, reason => {
+            this.error(reason, "login")
         })
     }
     RegistrationUser = () => {
@@ -57,12 +59,14 @@ class userStore {
                 email : this.getEmail,
                 password : this.getPassword
             }
-        }).then(response => {
-            console.log(response)
-            if (response === undefined){
-                window.location.href = "/register"
-            }
+        }).then(() => {
+            window.location.href="/login"
+        }, reason => {
+            this.error(reason, "register")
         })
+    }
+    error = (errorMessage, location) => {
+        ErrorStore.setError(errorMessage, location)
     }
 }
 decorate(userStore, {

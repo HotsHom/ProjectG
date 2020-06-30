@@ -1,7 +1,7 @@
 import * as React from "react";
-import {Link} from "react-router-dom"
 import UserStore from "../../repositories/local/store/userStore";
 import styles from "../../style/loginScreen.module.css"
+import {Button} from "react-bootstrap";
 
 export class LoginScreen extends React.Component{
     ChangeEmail(event) {
@@ -14,9 +14,9 @@ export class LoginScreen extends React.Component{
     render() {
         return(
             <form className={styles.form}>
-                <input className={styles.form_Input} type="text" placeholder="Email" onChange={this.ChangeEmail}/>
-                <input className={styles.form_Input} type="text" placeholder="Password" onChange={this.ChangePassword}/>
-                <Link className={styles.form_Link} onClick={UserStore.AuthUser} to="/home">Залогиниться</Link>
+                <input className={styles.formInput} type="text" placeholder="Email" onChange={this.ChangeEmail}/>
+                <input className={styles.formInput} type="text" placeholder="Password" onChange={this.ChangePassword}/>
+                <Button className={styles.formLink} onClick={UserStore.AuthUser}>Залогиниться</Button>
             </form>
         );
     }
